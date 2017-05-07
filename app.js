@@ -21,6 +21,7 @@ app.use((req, res) => {
 });
 app.use((err, req, res, next) => {
     console.error(err);
+    res.status(500).send('Internal error');
 });
 
 app.listen(config.port, () => console.log('Magic happens at http://localhost:' + config.port));
