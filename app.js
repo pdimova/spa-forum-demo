@@ -7,13 +7,13 @@ const app = require('./lib/config/express')(config);
 require('./lib/config/mongoose')(config);
 require('./lib/routes/index')(app);
 
-app.use((req, res) => {
+app.all('*', (req, res) => {
     res.status(404).send('Oppps');
 });
 
 app.use((err, req, res, next) => {
     console.error('Error handler middelware ' + err);
-    
+
     if (!res.headersSent) {
         res.status(500).send('Internal error');
     }
