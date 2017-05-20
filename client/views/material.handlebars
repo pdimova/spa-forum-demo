@@ -1,0 +1,72 @@
+<div class="container">
+    <section z-depth-1 orange lighten-5>
+        {{#with result}}
+        <article class="row z-depth-2 grey lighten-5">
+            <div class="right col s12">
+                <button class="btn btn-watching" data-action-type="watching">Watching</button>
+                <button class="btn btn-watching" data-action-type="watched">Watched</button>
+                <button class="btn btn-watching" data-action-type="want-to-watch">Want-to-watch</button>
+            </div>
+            <div class="col s12">
+                <a href="#/materials/{{this.id}}">
+                    <h2>{{this.title}}</h2>
+                </a>
+            </div>
+            <div class="col s12">
+                <span><i class="material-icons">face</i><a href="#/users/{{this.user.id}}">{{this.user.username}}</a></span>
+                <span><i class="material-icons">query_builder</i>{{this.createdAt}}</span>
+            </div>
+            <div class="col s5">
+                <img class="responsive-img" src="{{this.img}}">
+            </div>
+            <div class="col s7">
+                <p class="flow-text">
+                    {{this.description}}
+                </p>
+            </div>
+            <div class="col s12">
+                <span><i class="material-icons">comment</i><a href="#/materials/{{this.id}}/comments">{{this.commentsCount}}</a></span>
+                <div class="reply-btn hide right">
+                    <span><a href="#"><i class="material-icons">reply</i></a></span>
+                </div>
+            </div>
+        </article>
+        <section>
+            {{!--{{#if localStorage.getItem('username')}}
+            <section>--}} {{#each comments}}
+                <article class="row z-depth-2 orange lighten-5">
+                    <div class="col s12">
+                        <p>{{this.text}}</p>
+                    </div>
+                    <div class="col s12">
+                        <span class="right"><i class="material-icons">face</i><a href="#/users/{{this.user.id}}">{{this.user.username}}</a></span>
+                    </div>
+                </article>
+                {{else}}
+                <div>Be the first to comment here!</div>
+                {{/each}} {{!--
+            </section>
+            {{else}}
+            <div>Login to see comments!</div>
+            {{/if}}--}}
+        </section>
+        {{/with}}
+    </section>
+    <div class="comment-box hide row z-depth-2">
+        <form class="col s6 offset-s3">
+            <div class="row">
+                <div class="col s12"></div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <textarea id="comment" class="materialize-textarea" name="commentText"></textarea>
+                    <label for="comment">Comment</label>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <button type="submit" name="btn_register" class="col s12 btn btn-large waves-effect green lighten-1">Add</button>
+            </div>
+        </form>
+    </div>
+</div>

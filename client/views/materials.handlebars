@@ -1,0 +1,41 @@
+<div class="fixed-action-btn horizontal">
+    <a class="btn-floating btn-large waves-effect waves-light red" href="#/material/add">
+      <i class="large material-icons">add</i>
+    </a>
+    <ul>
+        <li><a class="btn-floating red"><i class="material-icons">insert_chart</i></a></li>
+        <li><a class="btn-floating yellow darken-1"><i class="material-icons">format_quote</i></a></li>
+        <li><a class="btn-floating green"><i class="material-icons">publish</i></a></li>
+        <li><a class="btn-floating blue"><i class="material-icons">attach_file</i></a></li>
+    </ul>
+</div>
+<div class="container">
+    <section z-depth-1 orange lighten-5>
+        {{#each result}}
+        <article class="row z-depth-2 grey lighten-5">
+            <div class="col s12">
+                <a href="#/materials/{{this.id}}">
+                    <h2>{{this.title}}</h2>
+                </a>
+            </div>
+            <div class="col s12">
+                <span><i class="material-icons">face</i><a href="#/users/{{this.user.id}}">{{this.user.username}}</a></span>
+                <span><i class="material-icons">query_builder</i>{{this.createdAt}}</span>
+            </div>
+            <div class="col s5">
+                <img class="responsive-img" src="{{this.img}}">
+            </div>
+            <div class="col s7">
+                <p class="flow-text">
+                    {{this.description}}
+                </p>
+            </div>
+            <div class="col s12">
+                <span><i class="material-icons">comment</i><a href="#/materials/{{this.id}}/comments">{{this.commentsCount}}</a></span>
+            </div>
+        </article>
+        {{else}}
+        <p class="empty">No content yet</p>
+        {{/each}}
+    </section>
+</div>
