@@ -6,6 +6,7 @@ const requesterModule = ($ => {
             let promise = new Promise((resolve, reject) => {
                 $.ajax({
                     url,
+                    contentType: 'text/html',
                     method: "GET",
                     success(response) {
                         resolve(response);
@@ -20,10 +21,12 @@ const requesterModule = ($ => {
             });
             return promise;
         },
-        getJSON(url) {
+        getJSON(url, options = {}) {
             let promise = new Promise((resolve, reject) => {
+                let headers = options.headers || {};
                 $.ajax({
                     url,
+                    headers,
                     method: "GET",
                     contentType: "application/json",
                     success(response) {
@@ -41,7 +44,7 @@ const requesterModule = ($ => {
         },
         putJSON(url, body, options = {}) {
             let promise = new Promise((resolve, reject) => {
-                var headers = options.headers || {};
+                let headers = options.headers || {};
                 $.ajax({
                     url,
                     headers,
@@ -60,7 +63,7 @@ const requesterModule = ($ => {
         },
         postJSON(url, body, options = {}) {
             let promise = new Promise((resolve, reject) => {
-                var headers = options.headers || {};
+                let headers = options.headers || {};
 
                 $.ajax({
                     url,
@@ -78,6 +81,6 @@ const requesterModule = ($ => {
             });
             return promise;
         },
-
     }
 })($);
+
