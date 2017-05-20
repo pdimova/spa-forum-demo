@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="./bower_components/materialize/bin/materialize.css">
     <link rel="stylesheet" href="./bower_components/toastr/toastr.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <title>App</title>
 
     <!-- Loading libs -->
@@ -35,6 +36,19 @@
     <div id="wrapper">
 
     </div>
+
+    <script>
+        $(function () {
+            if (localStorage.getItem('username')) {
+                let username = localStorage.getItem('username');
+                $('.nav-wrapper ul').prepend(`<li class="user-btn"><a href="#/profiles/${username}">${username}</a></li>`);
+                // Repeating code , refactor pls
+                $('.logout-btn').removeClass('hide');
+                $('.login-btn').addClass('hide');
+                $('.register-btn').addClass('hide');
+            }
+        });
+    </script>
 
     <!-- Loading app -->
     <script src="./scripts/requester.js" defer="defer"></script>
