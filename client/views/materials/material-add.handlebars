@@ -1,0 +1,30 @@
+{{> header }} {{> drawer }}
+
+<main class="mdl-layout__content forum-content">
+    <div class="mdl-grid forum-content__layout">
+        <div class="mdl-cell mdl-cell--6-col mdl-cell--3-offset mdl-shadow--2dp">
+            <form class="form-add">
+                <div class="mdl-textfield mdl-js-textfield">
+                    <input class="mdl-textfield__input" type="text" id="title" name="title">
+                    <label class="mdl-textfield__label" for="title">Title...</label>
+                </div>
+
+                <div class="mdl-textfield mdl-js-textfield">
+                    <textarea class="mdl-textfield__input" type="text" rows="5" id="description" name="description"></textarea>
+                    <label class="mdl-textfield__label" for="description">Description...</label>
+                </div>
+
+                <div class="mdl-textfield mdl-js-textfield">
+                    <input class="mdl-textfield__input" type="text" id="img" name="img">
+                    <label class="mdl-textfield__label" for="img">Image...</label>
+                </div>
+                <br>
+                <br>
+                <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect form-add__btn-add">Add</button>
+            </form>
+        </div>
+    </div>
+</main>
+
+
+{{> footer }}

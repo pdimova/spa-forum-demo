@@ -1,0 +1,97 @@
+{{> header }} {{> drawer }}
+
+<main class="mdl-layout__content forum-content">
+    <div class="mdl-grid forum-content__layout">
+        {{#with result}}
+        <div class="mdl-cell mdl-cell--12-col">
+            <article class="mdl-card mdl-shadow--2dp post">
+                <header class="mdl-card__title post__heading" style="background-image:url({{this.img}}">
+                    <h1 class="mdl-card__title-text"><a href="#/materials/{{this.id}}">{{this.title}}</a></h1>
+                </header>
+                <div class="mdl-card__actions clearfix post__footer">
+                    <div class="post__footer-avatar">
+                        <img alt="" src="http://1.gravatar.com/avatar/70cf167a8a0a7fc3d83950b60cb537a7?s=32&amp;d=mm&amp;r=g" srcset="">
+                    </div>
+                    <div class="post__footer-meta">
+                        <strong><span class="author"><a href="#/users/{{this.user.id}}">{{this.user.username}}</a></span></strong>
+                        <span><time datetime="{{this.createdAt}}">{{userfriendlyDate this.createdAt}}</time></span>
+                    </div>
+                    <div class="post__footer-watching-btns">
+                        <button class="mdl-button mdl-js-button mdl-js-ripple-effect">Watching</button>
+                        <button class="mdl-button mdl-js-button mdl-js-ripple-effect">Watched</button>
+                        <button class="mdl-button mdl-js-button mdl-js-ripple-effect">Want-to-watch</button>
+                    </div>
+                </div>
+                <div class="mdl-card__supporting-text post__content">
+                    <p>{{this.description}}</p>
+                    <p>In auctor lobortis lacus. In auctor lobortis lacus. Cras non dolor. Praesent egestas tristique nibh.
+                        Maecenas malesuada.
+                    </p>
+                    <p>Etiam vitae tortor. Etiam feugiat lorem non metus. Proin faucibus arcu quis ante. Fusce ac felis sit
+                        amet ligula pharetra condimentum. Donec venenatis vulputate lorem.<span id="more-60"></span></p>
+                    <p>Phasellus leo dolor, tempus non, auctor et, hendrerit quis, nisi. Donec orci lectus, aliquam ut, faucibus
+                        non, euismod id, nulla. Duis vel nibh at velit scelerisque suscipit. Nam ipsum risus, rutrum vitae,
+                        vestibulum eu, molestie vel, lacus. Maecenas malesuada.</p>
+                    <p>Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos. In ac felis
+                        quis tortor malesuada pretium. Phasellus leo dolor, tempus non, auctor et, hendrerit quis, nisi.
+                        Vivamus in erat ut urna cursus vestibulum. Ut a nisl id ante tempus hendrerit.
+                    </p>
+                    <p>Sed fringilla mauris sit amet nibh. Nunc nonummy metus. Integer tincidunt. Aliquam lorem ante, dapibus
+                        in, viverra quis, feugiat a, tellus. Donec elit libero, sodales nec, volutpat a, suscipit non, turpis.</p>
+                </div>
+                <div class="mdl-card__menu">
+                    <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+                                    <i class="material-icons">share</i>
+                                </button>
+                </div>
+            </article>
+        </div>
+        {{/with}} {{#if currentUser}} {{#with result}}
+        <div class="mdl-cell mdl-cell--12-col mdl-shadow--2dp">
+            <div class="hidden respond">
+                <div class="clearfix respond__close-btn">
+                    <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"><i class="material-icons">clear</i></button>
+                </div>
+                <h3>Leave a comment</h3>
+                <form class="respond__form" novalidate>
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <textarea class="mdl-textfield__input" type="text" rows="10" id="comment" name="commentText" required></textarea>
+                        <label class="mdl-textfield__label" for="comment">Comments</label>
+                    </div>
+                    <input name="submit" id="submit" class="mdl-button mdl-js-button mdl-button--raised" value="Submit" type="submit">
+                </form>
+            </div>
+            <div class="comments-list">
+                <div class="clearfix comments-list__reply-btn">
+                    <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"><i class="material-icons">reply</i></button>
+                </div>
+                <h3 class="comments-list__heading">{{this.commentsCount}} thoughts on "<span>{{this.title}}</span>"</h3>
+                {{#if this.commentsCount}}
+                <ul class='mdl-list'>
+                    {{#each comments}}
+                    <li class="mdl-list__item">
+                        <article>
+                            <p><span><a href="{{this.user.id}}">{{this.user.username}}</a><span> says:</p>
+                            <div>{{this.text}}</div>
+                        </article>
+                    </li>
+                    {{/each}}
+                </ul>
+                {{else}}
+                <p>Be the firs to comment</p>
+                {{/if}}
+
+            </div>
+        </div>
+        {{/with}} {{/if}}
+
+        <div class="mdl-cell mdl-cell--12-col">
+            <a href="/" class="back-navigation"> 
+                <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"><i class="material-icons">arrow_back</i></button>Back
+            </a>
+        </div>
+
+    </div>
+</main>
+
+{{> footer }}

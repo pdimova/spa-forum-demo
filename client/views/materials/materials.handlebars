@@ -1,0 +1,62 @@
+{{> header }} {{> drawer }}
+
+<main class="mdl-layout__content forum-content">
+    <div class="mdl-grid forum-content__layout">
+
+        <div class="mdl-tabs mdl-js-tabs">
+            <div class="mdl-tabs__tab-bar">
+                <a href="#tab1" class="mdl-tabs__tab">Tab One</a>
+                <a href="#tab2" class="mdl-tabs__tab">Tab Two</a>
+                <a href="#tab3" class="mdl-tabs__tab">Tab Three</a>
+            </div>
+            <div class="mdl-tabs__panel is-active" id="tab1">
+                <p>First tab's content.</p>
+            </div>
+            <div class="mdl-tabs__panel" id="tab2">
+                <p>Second tab's content.</p>
+            </div>
+            <div class="mdl-tabs__panel" id="tab3">
+                <p>Third tab's content.</p>
+            </div>
+        </div>
+
+        {{#if currentUser}}
+        <div class="btn-add-post">
+            <a class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" href="#/material/add"><i class="material-icons">add</i></a>
+        </div>
+        {{/if}} {{#each result}}
+        <div class="mdl-cell mdl-cell--12-col">
+            <article class="mdl-card mdl-shadow--2dp post">
+                <header class="mdl-card__title post__heading" style="background-image:url({{this.img}})">
+                    <h1 class="mdl-card__title-text">{{this.title}}</h1>
+                </header>
+                <div class="mdl-card__supporting-text post__content">
+                    <p>{{this.description}}</p>
+                    <p>In auctor lobortis lacus. In auctor lobortis lacus. Cras non dolor. Praesent egestas tristique nibh.
+                        Maecenas malesuada.
+                    </p>
+                    <p>Etiam vitae tortor. Etiam feugiat lorem non metus. Proin faucibus arcu quis ante. Fusce ac felis sit
+                        amet ligula pharetra condimentum. Donec venenatis vulputate lorem.
+                    </p>
+                    <p>
+                        <a class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" href="#/materials/{{this.id}}">READ MORE</a>
+                    </p>
+                </div>
+                <footer class="mdl-card__actions mdl-card--border post__footer">
+                    <div class="post__footer-avatar">
+                        <img alt="" src="http://1.gravatar.com/avatar/70cf167a8a0a7fc3d83950b60cb537a7?s=32&amp;d=mm&amp;r=g" srcset="">
+                    </div>
+                    <div class="post__footer-meta">
+                        <strong><span class="author"><a href="#/users/{{this.user.id}}">{{this.user.username}}</a></span></strong>
+                        <span><time datetime="{{this.createdAt}}">{{userfriendlyDate this.createdAt}}</time></span>
+                    </div>
+                </footer>
+            </article>
+        </div>
+        {{else}}
+        <p class="empty">No content yet</p>
+        {{/each}}
+    </div>
+</main>
+
+{{> footer }}
