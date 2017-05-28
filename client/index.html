@@ -5,58 +5,64 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="./bower_components/material-design-lite/material.css">
-    <link rel="stylesheet" href="./bower_components/toastr/toastr.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
     <title>App</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="./bower_components/material-design-lite/material.min.css">
+    <link rel="stylesheet" href="./bower_components/toastr/toastr.css">
+    <link rel="stylesheet" href="./assets/css/base.css">
+    <link rel="stylesheet" href="./assets/css/layout.css">
+    <link rel="stylesheet" href="./assets/css/modules.css">
+</head>
+
+<body>
+    <div class="mdl-layout__container">
+        <div id="wrapper" class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+
+        </div>
+    </div>
+
 
     <!-- Loading libs -->
+    <script src="./bower_components/material-design-lite/material.js" defer></script>
     <script src="./bower_components/jquery/dist/jquery.js"></script>
-    <script src="./bower_components/material-design-lite/material.js"></script>
     <script src="./bower_components/navigo/lib/navigo.js"></script>
     <script src="./bower_components/handlebars/handlebars.js"></script>
     <script src="./bower_components/toastr/toastr.js"></script>
-</head>
-
-
-
-<body>
-
-    <nav>
-        <div class="nav-wrapper">
-            <a href="#" class="brand-logo">Logo</a>
-            <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li class="login-btn"><a href="#/login">Login</a></li>
-                <li class="logout-btn hide"><a href="#/logout">Logout</a></li>
-                <li class="register-btn"><a href="#/register">Register</a></li>
-            </ul>
-        </div>
-    </nav>
-
-    <div id="wrapper">
-
-    </div>
 
     <script>
         $(function () {
-            if (localStorage.getItem('username')) {
-                let username = localStorage.getItem('username');
-                $('.nav-wrapper ul').prepend(`<li class="user-btn"><a href="#/profiles/${username}">${username}</a></li>`);
-                // Repeating code , refactor pls
-                $('.logout-btn').removeClass('hide');
-                $('.login-btn').addClass('hide');
-                $('.register-btn').addClass('hide');
-            }
+            // select the target node
+            var target = document.querySelector('#wrapper');
+
+            // create an observer instance
+            var observerForChangesInDOM = new MutationObserver(mutations => {
+                mutations.forEach(function (mutation) {
+                    console.log(mutation.type);
+                    if (mutation.type === 'childList') {
+                        componentHandler.upgradeDom();
+                    }
+                });
+            });
+
+            // configuration of the observer:
+            var config = { attributes: false, childList: true, characterData: false, subtree: false }
+
+            // pass in the target node, as well as the observer options
+            observerForChangesInDOM.observe(target, config);
+
+            // later, you can stop observing
+            //observer.disconnect();
         });
     </script>
 
     <!-- Loading app -->
-    <script src="./scripts/requester.js" defer="defer"></script>
-    <script src="./scripts/view-loader.js" defer="defer"></script>
-    <script src="./scripts/data-fetcher.js" defer="defer"></script>
-    <script src="./scripts/controller.js" defer="defer"></script>
-    <script src="./scripts/routes.js" defer="defer"></script>
-
+    <script src="./scripts/config.js" defer></script>
+    <script src="./scripts/requester.js" defer></script>
+    <script src="./scripts/view-loader.js" defer></script>
+    <script src="./scripts/data-fetcher.js" defer></script>
+    <script src="./scripts/controller.js" defer></script>
+    <script src="./scripts/routes.js" defer></script>
 </body>
 
 </html>
