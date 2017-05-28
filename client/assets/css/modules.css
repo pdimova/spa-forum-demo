@@ -1,0 +1,157 @@
+/*logo*/
+.mdl-layout__title img, {
+    width: 30px;
+    height: 30px;
+}
+
+/*button*/
+
+.btn-add-post {
+    position: fixed;
+    right: 23px;
+    bottom: 123px;
+    padding-top: 15px;
+    margin-bottom: 0;
+    z-index: 998;
+}
+
+
+/*post frame*/
+
+.forum-content__layout {
+    max-width: 900px;
+}
+
+.mdl-card {
+    /*background-color: lightsalmon;*/
+    width: 100%;
+}
+
+.mdl-card__title {
+    color: #fff;
+    height: 280px;
+    /*background: url('http://mdlwp.com/demo/wp-content/uploads/2015/07/cityscape-beach.jpg') center / cover;*/
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.post {}
+
+.post__heading {
+    padding: 1.5em;
+}
+
+.post__heading h1 {
+    color: #fff;
+}
+
+.post__content {}
+
+.post__footer {
+    line-height: normal;
+}
+
+.post__footer-avatar {
+    float: left;
+}
+
+.post__footer-avatar img {
+    max-width: 32;
+    max-height: 32;
+}
+
+.post__footer-meta {
+    float: left;
+    color: #757575;
+    font-size: 12px;
+    line-height: 16px;
+}
+
+.post__footer-meta span.author {
+    display: block;
+}
+
+.post__footer-watching-btns {
+    float: right;
+}
+
+.comments-list,
+.respond {
+    background-color: #EEE;
+    padding: 16px 0px;
+}
+
+.comments-list__reply-btn,
+.respond__close-btn {
+    float: right;
+}
+
+.respond {}
+
+.respond__form .mdl-textfield {
+    width: 100%;
+}
+
+.back-navigation {
+    color: #757575;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+
+/*login*/
+
+.form-login {
+    padding: 0 16px;
+}
+
+.form-login .mdl-textfield {
+    width: 100%;
+}
+
+.form-login .mdl-textfield {
+    width: 100%;
+}
+
+.form-login__btn-login {
+    margin: auto 0;
+}
+
+
+/*register*/
+
+.form-register {
+    padding: 0 16px;
+}
+
+.form-register .mdl-textfield {
+    width: 100%;
+}
+
+.form-register .mdl-textfield {
+    width: 100%;
+}
+
+.form-register__btn-login {
+    margin: auto 0;
+}
+
+
+/*add*/
+
+.form-add {
+    padding: 0 16px;
+}
+
+.form-add .mdl-textfield {
+    width: 100%;
+}
+
+.form-add .mdl-textfield {
+    width: 100%;
+}
+
+.form-add__btn-add {
+    margin: auto 0;
+}
