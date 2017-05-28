@@ -23,16 +23,13 @@ const controllerModule = (($, viewLoader, dataService, toastr) => {
     return {
         users: {
             register() {
-                viewLoader.get(viewNames.register)
+                viewLoader.get('users', viewNames.register)
                     .then(compiledTemplate => {
-                        let context = { title: "My New Post", body: "This is my first post!" };
-                        const html = compiledTemplate(context);
-                        $('#wrapper').html(html);
+                        $('#wrapper').html(compiledTemplate());
 
                         // Collect user input on form submit
                         $('form').on("submit", function (event) {
                             event.preventDefault(); // do NOT send this form to nowhere
-
                             let user = collectFormData($(this));
 
                             dataService.users.register(user)
@@ -42,10 +39,6 @@ const controllerModule = (($, viewLoader, dataService, toastr) => {
                                     return dataService.users.login(user);
                                 })
                                 .then(response => {
-                                    $('.logout-btn').removeClass('hide');
-                                    $('.login-btn').addClass('hide');
-                                    $('.register-btn').addClass('hide');
-
                                     document.location = "#/";
                                     //document.location.reload();
                                 })
@@ -58,24 +51,19 @@ const controllerModule = (($, viewLoader, dataService, toastr) => {
                     });
             },
             login() {
-                viewLoader.get(viewNames.login)
+                viewLoader.get('users', viewNames.login)
                     .then(compiledTemplate => {
-                        let context = { title: "My New Post", body: "This is my first post!" };
+                        let context = {};
                         const html = compiledTemplate(context);
                         $('#wrapper').html(html);
 
                         $('form').on("submit", function (event) {
                             event.preventDefault(); // do NOT send this form to nowhere
-
                             let user = collectFormData($(this));
 
                             dataService.users.login(user)
                                 .then(response => {
                                     toastr.success(`Logging ${response.result.username} in!`);
-                                    $('.logout-btn').removeClass('hide');
-                                    $('.login-btn').addClass('hide');
-                                    $('.register-btn').addClass('hide');
-
                                     document.location = "#/";
                                     //document.location.reload();
                                 })
@@ -93,7 +81,7 @@ const controllerModule = (($, viewLoader, dataService, toastr) => {
                     .then(response => {
                         context = response;
 
-                        return viewLoader.get(viewNames.profile)
+                        return viewLoader.get('users', viewNames.profile)
                     })
                     .then(compiledTemplate => {
                         const html = compiledTemplate(context);
@@ -129,12 +117,14 @@ const controllerModule = (($, viewLoader, dataService, toastr) => {
                 let context;
                 dataService.materials.get()
                     .then(response => {
-                        context = response;
+                        let currentUser = localStorage.getItem('username');
+                        context = { result: response.result, currentUser };
 
-                        return viewLoader.get(viewNames.materials)
+                        return viewLoader.get('materials', viewNames.materials)
                     })
                     .then(compiledTemplate => {
                         const html = compiledTemplate(context);
+
                         $('#wrapper').html(html);
                     })
                     .catch(err => { });
@@ -143,27 +133,41 @@ const controllerModule = (($, viewLoader, dataService, toastr) => {
                 let context;
                 dataService.materials.getByID(id)
                     .then(response => {
-                        context = response;
+                        let currentUser = localStorage.getItem('username');
+                        context = { result: response.result, currentUser };
 
-                        return viewLoader.get(viewNames.material)
+                        return viewLoader.get('materials', viewNames.material)
                     })
                     .then(compiledTemplate => {
                         const html = compiledTemplate(context);
                         $('#wrapper').html(html);
 
-                        if (localStorage.getItem('username')) {
-                            $('.reply-btn').removeClass('hide');
-                            $('.comment-box').removeClass('hide');
-                        }
+                        $('.comments-list__reply-btn').on("click", function (event) {
+                            let $this = $(this);
+                            $this.addClass('hidden');
 
-                        $('.comment-box form').on("submit", function (event) {
+                            $('.respond__close-btn').removeClass('hidden');
+                            let respondDiv = $('.respond');
+                            respondDiv.removeClass('hidden');
+                        });
+
+                        $('.respond__close-btn').on("click", function (event) {
+                            let $this = $(this);
+                            $this.addClass('hidden');
+
+                            $('.comments-list__reply-btn').removeClass('hidden');
+                            let respondDiv = $('.respond');
+                            respondDiv.addClass('hidden');
+                        });
+
+                        $('form').on("submit", function (event) {
                             event.preventDefault(); // do NOT send this form to nowhere
 
                             let comment = collectFormData($(this));
 
                             dataService.materials.addComment(id, comment)
                                 .then(response => {
-                                    toastr.success(`Bravo, ${response.result.username} , your comment was added!`);
+                                    toastr.success(`Bravo, ${response.user.username} , your comment was added!`);
 
                                     //document.location.reload();
                                     document.location = "#/materials/" + id;
@@ -176,9 +180,7 @@ const controllerModule = (($, viewLoader, dataService, toastr) => {
                         });
 
                         $('.btn-watching').on("click", function (event) {
-
                             let action = $(this).data('actionType');
-
                             let status = {
                                 id: id,
                                 category: action
@@ -199,9 +201,12 @@ const controllerModule = (($, viewLoader, dataService, toastr) => {
                     .catch(err => { });
             },
             showAddForm() {
-                viewLoader.get(viewNames.addForm)
+                viewLoader.get('materials', viewNames.addForm)
                     .then(compiledTemplate => {
-                        $('#wrapper').html(compiledTemplate);
+                        let currentUser = localStorage.getItem('username');
+                        let context = { currentUser };
+                        const html = compiledTemplate(context);
+                        $('#wrapper').html(html);
 
                         $('form').on("submit", function (event) {
                             event.preventDefault(); // do NOT send this form to nowhere
@@ -223,7 +228,5 @@ const controllerModule = (($, viewLoader, dataService, toastr) => {
                     })
             }
         }
-
-
     }
-})($, viewLoader, dataService, toastr);
+})($, viewLoader, dataService, toastr, componentHandler);

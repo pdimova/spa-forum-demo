@@ -1,19 +1,17 @@
 'use strict';
 
 const dataService = (requesterModule => {
-    const domain = 'http://localhost:3000';
 
     return {
         users: {
             register(user) {
-                return requesterModule.postJSON(`${domain}/api/users`, user);
+                return requesterModule.postJSON(`/api/users`, user);
             },
             login(user) {
-                return requesterModule.putJSON(`${domain}/api/users/auth`, user)
+                return requesterModule.putJSON(`/api/users/auth`, user)
                     .then(response => {
                         localStorage.setItem("username", response.result.username);
                         localStorage.setItem("token", response.result.token);
-                        console.log(localStorage);
                         return Promise.resolve(response);
                     })
                     .catch(err => {
@@ -21,15 +19,15 @@ const dataService = (requesterModule => {
                     });
             },
             getByUsername(username) {
-                return requesterModule.getJSON(`${domain}/api/profiles/${username}`);
+                return requesterModule.getJSON(`/api/profiles/${username}`);
             },
         },
         materials: {
             get() {
-                return requesterModule.getJSON(`${domain}/api/materials`);
+                return requesterModule.getJSON(`/api/materials`);
             },
             getByID(id) {
-                return requesterModule.getJSON(`${domain}/api/materials/${id}`);
+                return requesterModule.getJSON(`/api/materials/${id}`);
             },
             add(material) {
                 let options = {
@@ -38,7 +36,7 @@ const dataService = (requesterModule => {
                     }
                 };
 
-                return requesterModule.postJSON(`${domain}/api/materials`, material, options);
+                return requesterModule.postJSON(`/api/materials`, material, options);
             },
             addComment(id, comment) {
                 let options = {
@@ -47,7 +45,7 @@ const dataService = (requesterModule => {
                     }
                 };
 
-                return requesterModule.putJSON(`${domain}/api/materials/${id}/comments`, comment, options);
+                return requesterModule.putJSON(`/api/materials/${id}/comments`, comment, options);
             }
         },
         userMaterials: {
@@ -59,7 +57,7 @@ const dataService = (requesterModule => {
                     }
                 };
 
-                return requesterModule.getJSON(`${domain}/api/user-materials/${action}`, options);
+                return requesterModule.getJSON(`/api/user-materials/${action}`, options);
             },
             assignCategory(status) {
                 let options = {
@@ -68,7 +66,7 @@ const dataService = (requesterModule => {
                     }
                 };
 
-                return requesterModule.postJSON(`${domain}/api/user-materials`, status, options);
+                return requesterModule.postJSON(`/api/user-materials`, status, options);
             }
         }
     }

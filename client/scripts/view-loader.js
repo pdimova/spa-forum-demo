@@ -4,12 +4,12 @@ const viewLoader = (requesterModule => {
     const cashe = new Map();
 
     return {
-        get(viewName) {
+        get(viewFolder, viewName) {
             if (cashe.has(viewName)) {
                 return Promise.resolve(cashe.get(viewName));
             }
 
-            let url = `../views/${viewName}.handlebars`;
+            let url = `../views/${viewFolder}/${viewName}.handlebars`;
             return requesterModule
                 .get(url)
                 .then(sourceTemplate => {
@@ -20,5 +20,4 @@ const viewLoader = (requesterModule => {
                 });
         }
     }
-
 })(requesterModule);
